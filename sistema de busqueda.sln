@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31624.102
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "sistema de busqueda", "sistema de busqueda\sistema de busqueda.csproj", "{97FB5C97-F807-4B33-BCBE-E3D5B1CFC3FD}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{97FB5C97-F807-4B33-BCBE-E3D5B1CFC3FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{97FB5C97-F807-4B33-BCBE-E3D5B1CFC3FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{97FB5C97-F807-4B33-BCBE-E3D5B1CFC3FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{97FB5C97-F807-4B33-BCBE-E3D5B1CFC3FD}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B5FCDC6C-1EA0-45C2-B968-09E88DA76A3E}
+	EndGlobalSection
+EndGlobal
