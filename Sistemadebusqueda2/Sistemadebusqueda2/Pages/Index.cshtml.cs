@@ -39,10 +39,11 @@ namespace Sistemadebusqueda2.Pages
                 var usuario = this.Usuario;
                 var pass = this.Password;
                 var repo = new IndexRepository();
+                bool resultadoValidacion = repo.ValidarUsuario(usuario, pass);
 
-                if (repo.ValidarUsuario(usuario, pass))
+                if (resultadoValidacion == true)
                 {
-                    return RedirectToPage("./Prueba");
+                    return RedirectToPage("./Index");
                 }
                 else
                 {

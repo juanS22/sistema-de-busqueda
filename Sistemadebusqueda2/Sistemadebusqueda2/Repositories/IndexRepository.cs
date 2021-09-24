@@ -12,19 +12,20 @@ namespace Sistemadebusqueda2.Repositories
 
         public bool ValidarUsuario(string usuario, string password)
         {
-            bool resultado = false;
+            bool respuesta = false;
             using SqlConnection sql = new SqlConnection(ConnectionString);
-            using SqlCommand cmd = new SqlCommand("select count(*) from usuarios where usuario = '"+ usuario + "'and[password] = '" + password + "'", sql);
-            int valor;
-
+            using SqlCommand cmd = new SqlCommand("sp_check_usuario", sql);
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.Parameters.Add(new SqlParameter("@usuario", usuario));
+            cmd.Parameters.Add(new SqlParameter("@password", password));
             sql.Open();
-            valor = (int)cmd.ExecuteScalar();
-            if (valor > 0)
+            int resultadoQuery = (int)cmd.ExecuteScalar();
+            if (resultadoQuery > 0)
             {
-                resultado = true;
+                respuesta = true;
             }
 
-            return resultado;
+            return respuesta;
         }
 
     }
