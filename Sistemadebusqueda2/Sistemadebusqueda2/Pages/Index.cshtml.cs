@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using Sistemadebusqueda2.Repositories;
@@ -43,7 +44,9 @@ namespace Sistemadebusqueda2.Pages
 
                 if (resultadoValidacion == true)
                 {
-                    return RedirectToPage("./Index");
+                    Guid idSession = Guid.NewGuid();
+                    HttpContext.Session.SetString("idSession", idSession.ToString());
+                    return RedirectToPage("./Home");
                 }
                 else
                 {

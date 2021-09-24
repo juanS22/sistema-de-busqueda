@@ -24,6 +24,7 @@ namespace Sistemadebusqueda2
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddRazorPages();
+            services.AddSession(option=>option.IdleTimeout = TimeSpan.FromMinutes(30));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -46,6 +47,7 @@ namespace Sistemadebusqueda2
             app.UseRouting();
 
             app.UseAuthorization();
+            app.UseSession();
 
             app.UseEndpoints(endpoints =>
             {
