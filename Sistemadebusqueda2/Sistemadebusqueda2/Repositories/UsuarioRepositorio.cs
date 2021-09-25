@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Sistemadebusqueda2.Modelos;
+using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
@@ -25,6 +26,84 @@ namespace Sistemadebusqueda2.Repositories
 
         }
 
-  
+        private readonly string ConnectionString = "server=localhost;database=sb3600db;Integrated Security=true";
+        public bool ExisteNombreUsuario(string usuario)
+        {
+            bool respuesta = false;
+            using SqlConnection sql = new SqlConnection(ConnectionString);
+            using SqlCommand cmd = new SqlCommand("sp_check_nombre_usuario", sql);
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.Parameters.Add(new SqlParameter("@usuario", usuario));
+            sql.Open();
+            int resultadoQuery = (int)cmd.ExecuteScalar();
+            if (resultadoQuery > 0)
+            {
+                respuesta = true;
+            }
+
+            return respuesta;
+        }
+
+        public List<UsuarioListaModelo> ObtenerUsuarios()
+        {
+
+            var respuesta = new List<UsuarioListaModelo>();
+            string ConnectionString = "server=localhost;database=sb3600db;Integrated Security=true";
+            using SqlConnection sql = new SqlConnection(ConnectionString);
+            using SqlCommand cmd = new SqlCommand("sp_mostrar_usuarios", sql);
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            sql.Open();
+            using (var reader = cmd.ExecuteReader())
+            {
+                while (reader.Read())
+                {
+                    var nuevoUsuario = new UsuarioListaModelo()
+                    {
+                        id = (int)reader["id"],
+                        Usuario = reader["Usuario"].ToString(),
+                        Nombres = reader["Nombres"].ToString(),
+                        Apellidos = reader["Apellidos"].ToString(),
+                        RolId = (int)reader["rolId"],
+                        Pais = reader["Pais"].ToString()
+                    };
+
+                    respuesta.Add(nuevoUsuario);
+                }
+            }
+                return respuesta;
+        }
+
+        public UsuarioActualizarModel ObtenerUsuarioPorId(int id)
+        {
+
+            var respuesta = new UsuarioActualizarModel();
+            string ConnectionString = "server=localhost;database=sb3600db;Integrated Security=true";
+            using SqlConnection sql = new SqlConnection(ConnectionString);
+            using SqlCommand cmd = new SqlCommand("sp_obtener_usuario_por_id", sql);
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.Parameters.Add(new SqlParameter("@id", id));
+            sql.Open();
+            using (var reader = cmd.ExecuteReader())
+            {
+                while (reader.Read())
+                {
+                    var nuevoUsuario = new UsuarioActualizarModel()
+                    {
+                        id = (int)reader["id"],
+                        Usuario = reader["Usuario"].ToString(),
+                        Nombres = reader["Nombres"].ToString(),
+                        Apellidos = reader["Apellidos"].ToString(),
+                        RolId = (int)reader["rolId"],
+                        Pais = reader["Pais"].ToString(),
+                        Password = reader["password"].ToString()
+                    };
+
+                    respuesta = nuevoUsuario;
+                }
+            }
+            return respuesta;
+        }
     }
 }
+
+

@@ -63,8 +63,15 @@ namespace Sistemadebusqueda2.Pages
                     ModelState.AddModelError(string.Empty, "Las contraseñas no coinciden");
                     return Page();
                 }
-
                 var repo = new UsuarioRepositorio();
+
+                if (repo.ExisteNombreUsuario(this.NombreUsuario))
+                {
+                    ModelState.AddModelError(string.Empty, "El nombre de usuario ya se encuentra registrado en la base de datos");
+                    return Page();
+                }
+
+
                 repo.InsertarUsuario(this.Nombres, this.Apellidos, (int)this.RolId, this.pais, this.NombreUsuario, this.Password);
 
                 return RedirectToPage("./Usuarios");
