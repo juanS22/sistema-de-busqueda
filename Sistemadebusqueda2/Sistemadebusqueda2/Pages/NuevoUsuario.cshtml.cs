@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Sistemadebusqueda2.Repositories;
 
 namespace Sistemadebusqueda2.Pages
 {
@@ -25,6 +26,9 @@ namespace Sistemadebusqueda2.Pages
         [Display(Name = "Rol")]
         [Required(ErrorMessage = "El campo Rol es requerido")]
         public int? RolId { get; set; }
+        [BindProperty]
+        [Required(ErrorMessage = "El campo Pais es requerido")]
+        public string pais { get; set; }
         [BindProperty]        
         [Display(Name = "Contraseña")]
         [Required(ErrorMessage = "El campo contraseña es requerido")]
@@ -60,7 +64,10 @@ namespace Sistemadebusqueda2.Pages
                     return Page();
                 }
 
-                return Page();
+                var repo = new UsuarioRepositorio();
+                repo.InsertarUsuario(this.Nombres, this.Apellidos, (int)this.RolId, this.pais, this.NombreUsuario, this.Password);
+
+                return RedirectToPage("./Usuarios");
             }
 
             return Page();
