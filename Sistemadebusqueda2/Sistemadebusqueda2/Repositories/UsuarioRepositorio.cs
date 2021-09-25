@@ -119,7 +119,28 @@ namespace Sistemadebusqueda2.Repositories
                 cmd.ExecuteNonQuery();
             }
 
+        public void ActualizarPassword(int id, string password)
+        {
+            string ConnectionString = "server=localhost;database=sb3600db;Integrated Security=true";
+            using SqlConnection sql = new SqlConnection(ConnectionString);
+            using SqlCommand cmd = new SqlCommand("sp_actualizar_password", sql);
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.Parameters.Add(new SqlParameter("@id", id));
+            cmd.Parameters.Add(new SqlParameter("@password", password));
+            sql.Open();
+            cmd.ExecuteNonQuery();
+        }
 
+        public void EliminarUsuario(int id)
+        {
+            string ConnectionString = "server=localhost;database=sb3600db;Integrated Security=true";
+            using SqlConnection sql = new SqlConnection(ConnectionString);
+            using SqlCommand cmd = new SqlCommand("sp_eliminar_usuario", sql);
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.Parameters.Add(new SqlParameter("@id", id));    
+            sql.Open();
+            cmd.ExecuteNonQuery();
+        }
     }
 }
 
