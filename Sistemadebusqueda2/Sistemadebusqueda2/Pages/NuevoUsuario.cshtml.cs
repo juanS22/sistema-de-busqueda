@@ -54,6 +54,12 @@ namespace Sistemadebusqueda2.Pages
             {
                 var password = this.Password;
                 var repassword = this.RePassword;
+                if (password != repassword)
+                {
+                    ModelState.AddModelError(string.Empty, "Las contraseñas no coinciden");
+                    return Page();
+                }
+
                 return Page();
             }
 
