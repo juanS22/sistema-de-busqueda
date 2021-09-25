@@ -30,19 +30,7 @@ namespace Sistemadebusqueda2.Pages
             public int? RolId { get; set; }
             [BindProperty]
             [Required(ErrorMessage = "El campo Pais es requerido")]
-            public string pais { get; set; }
-            [BindProperty]
-            [Display(Name = "Contraseña")]
-            [Required(ErrorMessage = "El campo contraseña es requerido")]
-            [MinLength(8, ErrorMessage = "La contraseña debe tener al menos 8 caracteres")]
-            [RegularExpression("^(?=\\w*\\d)(?=\\w*[A-Z])(?=\\w*[a-z])\\S{8,16}$", ErrorMessage = "La contraseña debe tener al menos una mayuscula, minusculas y digitos")]
-            public string Password { get; set; }
-            [BindProperty]
-            [Display(Name = "Repetir Contraseña")]
-            [Required(ErrorMessage = "El campo repetir contraseña es requerido")]
-            [MinLength(8, ErrorMessage = "La contraseña debe tener al menos 8 caracteres")]
-            [RegularExpression("^(?=\\w*\\d)(?=\\w*[A-Z])(?=\\w*[a-z])\\S{8,16}$", ErrorMessage = "La contraseña debe tener al menos una mayuscula, minusculas y digitos")]
-            public string RePassword { get; set; }
+            public string pais { get; set; }   
             public ActionResult OnGet(int id)
         {
             var idSession = HttpContext.Session.GetString("idSession");
@@ -61,8 +49,14 @@ namespace Sistemadebusqueda2.Pages
             this.NombreUsuario = usuario.Usuario;
             this.RolId = usuario.RolId;
             this.pais = usuario.Pais;
-            this.Password = usuario.Password;
             return Page();
+        }
+
+        public IActionResult OnPost()
+        {
+            var repo = new UsuarioRepositorio();
+            repo.ActualizarUsuario(this.Id, this.Nombres, this.Apellidos, (int)this.RolId, this.pais);
+            return RedirectToPage("Usuarios");
         }
     }
 }

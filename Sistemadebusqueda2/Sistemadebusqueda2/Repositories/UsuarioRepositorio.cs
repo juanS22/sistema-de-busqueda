@@ -102,7 +102,24 @@ namespace Sistemadebusqueda2.Repositories
                 }
             }
             return respuesta;
-        }
+            }
+
+            public void ActualizarUsuario(int id,string nombres, string apellidos, int rolid, string pais)
+            {
+                string ConnectionString = "server=localhost;database=sb3600db;Integrated Security=true";
+                using SqlConnection sql = new SqlConnection(ConnectionString);
+                using SqlCommand cmd = new SqlCommand("sp_actualiza_usuario", sql);
+                cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                cmd.Parameters.Add(new SqlParameter("@id", id));
+                cmd.Parameters.Add(new SqlParameter("@nombres", nombres));
+                cmd.Parameters.Add(new SqlParameter("@apellidos", apellidos));
+                cmd.Parameters.Add(new SqlParameter("@rolid", rolid));
+                cmd.Parameters.Add(new SqlParameter("@pais", pais));
+                sql.Open();
+                cmd.ExecuteNonQuery();
+            }
+
+
     }
 }
 
